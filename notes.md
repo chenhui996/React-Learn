@@ -4,11 +4,16 @@
 同时这也是官方推荐初始化 React 项目的最佳方式;
 
 - 在终端中输入如下命令：
+
 ```
   $ npx create-react-app my-todolist
 ```
+
 - 等待命令运行完成，接着输入如下命令开启项目：
-  - cd my-todolist && npm start
+
+```
+  $ cd my-todolist && npm start
+```
 
 CRA 会自动开启项目并打开浏览器，可看到项目已经起起来了。(CRA:create react app)
 
@@ -18,23 +23,32 @@ CRA 会自动开启项目并打开浏览器，可看到项目已经起起来了�
 
 # 进入 src 目录
 
+```
 cd src
+```
 
 # 如果你在使用 Mac 或者 Linux：
 
+```
 rm -f \*
+```
 
 # 然后，创建我们将学习用的 JS 文件
 
+```
 touch index.js
+```
 
 # 最后，切回到项目目录文件夹下
 
+```
 cd ..
+```
 
 此时如果在终端项目目录下运行 npm start 会报错，因为我们的 index.js 还没有内容.
 
 使用编辑器打开项目，在刚刚创建的 index.js 文件中加入如下代码：
+
 ```javascript
 <script>
     import React from "react";
@@ -48,6 +62,7 @@ cd ..
     ReactDOM.render(<App />, document.getElementById("root"));
 </script>
 ```
+
 - 我们看到 index.js 里面的代码分为三个部分。
   - 首先是一系列导包，我们导入了 react 包，并命名为 React，导入了 react-dom 包并命名为 ReactDOM;
   - 然后我们定义了一个 React 组件，命名为 App，继承自 React.Component;
@@ -68,51 +83,60 @@ cd ..
 - 一个 React 组件的 render 方法中 return 的内容就为这个组件所将渲染的内容。
 
   - 比如我们现在的代码：
-    render() {
-    return <div>Hello, World</div>;
+
+```javascript
+<script>
+    class App extends React.Component {
+        render(){
+            return  <div>Hello, World</div>
+        }
     }
-  - 这里的 <div>Hello, World</div> 是一段 JSX 代码;
-  - 它最终会被转译成下面这段 JS 代码:
-  <script>
-      React.createElement(
-          'div',
-          null,
-          'Hello, World'
-      );
-  </script>
-  - React.createElement() 接收三个参数：
-    - 第一个参数代表 JSX 元素标签;
-    - 第二个参数代表这个 JSX 元素接收的属性，它是一个对象，这里因为我们的 div 没有接收任何属性，所以它是 null;
-    - 第三个参数代表 JSX 元素包裹的内容;
-  - React.createElement() 会对参数做一些检查确保你写的代码不会产生 BUG;
+</script>
+```
 
-        - 它最终会创建一个类似下面的对象：
+- 这里的 <div>Hello, World</div> 是一段 JSX 代码;
+- 它最终会被转译成下面这段 JS 代码:
 
-    <script>
-        {
-            type: 'div',
-            props: {
-                children: 'Hello, World'
-            }
-        };
-    </script>
+```javascript
+<script>React.createElement( 'div', null, 'Hello, World' );</script>
+```
 
-        - 这些对象被称之为 “React Element”;
-        - 你可以认为它们描述了你想要在屏幕上看到的内容;
-        - React 将会接收这些对象，使用它们来构建 DOM，并且对它们进行更新;
-        - App 组件最终返回这段 JSX 代码，所以我们使用 ReactDOM 的 render 方法渲染 App 组件，最终显示在屏幕上的就是 Hello, World" 内容。
+- React.createElement() 接收三个参数：
+  - 第一个参数代表 JSX 元素标签;
+  - 第二个参数代表这个 JSX 元素接收的属性，它是一个对象，这里因为我们的 div 没有接收任何属性，所以它是 null;
+  - 第三个参数代表 JSX 元素包裹的内容;
+- React.createElement() 会对参数做一些检查确保你写的代码不会产生 BUG;
+  - 它最终会创建一个类似下面的对象：
+
+```json
+    {
+        type: 'div',
+        props: {
+            children: 'Hello, World'
+        }
+    };
+```
+
+      - 这些对象被称之为 “React Element”;
+      - 你可以认为它们描述了你想要在屏幕上看到的内容;
+      - React 将会接收这些对象，使用它们来构建 DOM，并且对它们进行更新;
+      - App 组件最终返回这段 JSX 代码，所以我们使用 ReactDOM 的 render 方法渲染 App 组件，最终显示在屏幕上的就是 Hello, World" 内容。
 
 # JSX 作为变量使用
 
 因为 JSX 最终会被编译成一个 JS 对象，所以我们可以把它当做一个 JS 对象使用，它享有和一个 JS 对象同等的地位，比如可以将其赋值给一个变量;
 
 - 我们修改上面代码中的 render 方法如下：
+
+```javascript
 <script>
     render(){
         const element = <div>Hello,World</div>
         return element;
     }
 </script>
+```
+
 - 保存代码，我们发现浏览器中渲染的内容和我们之前类似。
 
 # 在 JSX 中使用变量
@@ -120,6 +144,8 @@ cd ..
 我们可以使用大括号 {} 在 JSX 中动态的插入变量值;
 
 - 修改 render 方法如下：
+
+```javascript
 <script>
     class App extends React.Component {
         render() {
@@ -129,12 +155,15 @@ cd ..
         };
     };
 </script>
+```
+
 - 保存代码，发现浏览器中效果依然不变。
 
 # JSX 中使用 JSX
 
 我们可以在 JSX 中再包含 JSX，这样我们编写任意层次的 HTML 结构：
 
+```javascript
 <script>
     class App extends React.Component {
         render() {
@@ -149,6 +178,7 @@ cd ..
         };
     };
 </script>
+```
 
 # JSX 中添加节点属性
 
@@ -157,9 +187,15 @@ cd ..
 - 只不过我们需要'遵守驼峰式命名'法则:
   - 比如在 HTML 上的属性 data-index 在 JSX 节点上要写成 dataIndex;
 - 因为在 JS 中 class 是保留字，我们要把 class 改成 className;
+
+```javascript
 <script>
-    const element = <div className="app" dataIndex="0">Hello, {contenet}</div>
+  const element ={" "}
+  <div className="app" dataIndex="0">
+    Hello, {element}
+  </div>
 </script>
+```
 
 # Component
 
@@ -174,17 +210,22 @@ React 的核心特点之一就是组件化;
 # 函数式组件
 
 - 在 React 中，函数式组件会默认接收一个 props 参数，然后返回一段 JSX：
+
+```javascript
 <script>
     function Todo(props){
         return <li>Hello, Cain</li>;
     }
 </script>
+```
 
 关于 props 我们将在下一节中讲解。
 
 # 类组件
 
 - 通过继承自 React.Component 的类来代表一个组件:
+
+```javascript
 <script>
     class Todo extends React.Component {
         render(){
@@ -192,12 +233,15 @@ React 的核心特点之一就是组件化;
         }
     }
 </script>
+```
 
 我们发现，在类组件中，我们需要在 render 方法里面返回需要渲染的 JSX。
 
 # 组件组合
 
 - 我们可以组合不同的组件来完成复杂的业务逻辑：
+
+```javascript
 <script>
     class App extends React.Component{
         render(){
@@ -210,11 +254,14 @@ React 的核心特点之一就是组件化;
         }
     }
 </script>
+```
 
 - 在上面的代码中，我们在类组件 App 中使用了我们之前定义的 Todo 组件
   - 我们看到，组件以 <Component /> 的形式使用,比如 Todo 组件使用时为 <Todo /> ;
   - 我们在 Todo 组件没有子组件时使用这种写法;
 - 当 Todo 组件需要包含子组件时，我们需要写成下面的形式：
+
+```javascript
 <script>
     class App extends React.Component{
         render(){
@@ -227,6 +274,7 @@ React 的核心特点之一就是组件化;
         }
     }
 </script>
+```
 
 # 组件渲染
 
@@ -234,9 +282,13 @@ React 的核心特点之一就是组件化;
   - 根组件;
   - 待挂载的 DOM 节点;
 - 可以将组件的内容渲染到 HTML 中;
+
+```javascript
 <script>
-    ReactDom.render(<App />, document.getElementById("root"));
+  ReactDom.render(
+  <App />, document.getElementById("root"));
 </script>
+```
 
 # Props
 
@@ -245,6 +297,8 @@ React 的核心特点之一就是组件化;
 # 函数式组件中使用 Props
 
 - 函数式组件默认接收 props 参数，它是一个'对象'，用于保存'父组件传递下来'的内容：
+
+```javascript
 <script>
     function Todo(props){
         return (
@@ -254,6 +308,7 @@ React 的核心特点之一就是组件化;
 
     <Todo content="阿辉" from="阿辉顶累" />
 </script>
+```
 
 - 我们给 Todo 函数式组件传递了'content'和'from'属性;
 - 所有传递的属性都会合并进 props 对象中,然后传递给 Todo 组件;
@@ -265,6 +320,8 @@ React 的核心特点之一就是组件化;
 # 类组件中使用 Props
 
 - 类组件中基本和函数式组件中的 Props 保持一致,是通过 this.props 来获取父组件传递下来的属性内容:
+
+```javascript
 <script>
     class Todo extends React.Component{
         return() {
@@ -274,6 +331,7 @@ React 的核心特点之一就是组件化;
 
     <Todo content="类阿辉" from="类阿辉依旧顶累">
 </script>
+```
 
 - props 传给 class 的方式与函数式基本一致:
   - props = { content : "类阿辉" from : "类阿辉依旧顶累" };
@@ -286,6 +344,8 @@ React 的核心特点之一就是组件化;
 # 定义 State
 
 - 通过在类组件中添加 constructor 方法，并在其中'定义'和'初始化' State：
+
+```javascript
 <script>
     constructor(props){
         super(props);
@@ -300,6 +360,7 @@ React 的核心特点之一就是组件化;
         };
     }
 </script>
+```
 
 - 这里 constructor 方法接收的 props 属性就是之前讲到的那个 props;
 - 并且 React 约定,每个继承自 React.Component 的组件:
@@ -313,6 +374,7 @@ React 的核心特点之一就是组件化;
   - 比如这一节中'将要'讲到的'生命周期函数'中;
   - 比如在 render 方法中：
 
+```javascript
 <script>
     class App extends React.Component{
         constructor(props){
@@ -326,8 +388,7 @@ React 的核心特点之一就是组件化;
                     "阿辉github是chenhui996",
                 ];
             };
-        }
-
+        },
         render(){
             return (
                 <ul>
@@ -340,6 +401,7 @@ React 的核心特点之一就是组件化;
         }
     }
 </script>
+```
 
 - 我们通过 this.state.todoList 可以获取我们在 constructor 方法中定义的 state
 - 可以看到，我们使用 this.state.todoList[0] 的方式替代了之前的 todoList[0];
@@ -354,6 +416,7 @@ React 的核心特点之一就是组件化;
   - State 的更新是合并更新的：
     - 比如原 state 是这样的：
 
+```javascript
 <script>
     constructor(props) {
     super(props);
@@ -363,11 +426,16 @@ React 的核心特点之一就是组件化;
     };
   }
 </script>
+```
 
 - 然后你调用 this.setState() 方法来更新 state:
+
+```javascript
 <script>
     this.setState({ nowTodo: "Hello, 阿辉" });
 </script>
+```
+
 - React 将会合并更新：
   - 将 nowTodo 的新内容合并进原 this.state;
 - 当更新之后，我们的 this.state 将会是下面这样的：
@@ -413,6 +481,8 @@ React 的核心特点之一就是组件化;
 # 渲染组件列表
 
 - JSX 允许我们渲染一个列表：
+
+```javascript
 <script>
     render(){
         const todoList = ["阿辉", "阿辉学习笔记", "阿辉难顶", "阿辉github是chenhui996"];
@@ -426,6 +496,7 @@ React 的核心特点之一就是组件化;
         );
     }
 </script>
+```
 
 - 我们通过对 todoList 进行 map 遍历:
 
@@ -433,6 +504,8 @@ React 的核心特点之一就是组件化;
   - 然后使用 {} 插值语法渲染这个列表;
 
 - 当然我们可以在 JSX 中使用表达式，所以上面的代码可以写成这样：
+
+```javascript
 <script>
     render(){
         const todoList = ["阿辉", "阿辉学习笔记", "阿辉难顶", "阿辉github是chenhui996"];
@@ -447,10 +520,16 @@ React 的核心特点之一就是组件化;
         );
     }
 </script>
+```
 
 # 加上 Key
 
-- React 要求给列表中每个组件加上 key 属性: - 用于标志在列表中这个组件的身份; - 当列表内容进行了修改:增加或删除了元素时; - React 可以根据 key 属性高效的对列表组件进行创建和销毁操作：
+- React 要求给列表中每个组件加上 key 属性:
+- 用于标志在列表中这个组件的身份;
+- 当列表内容进行了修改:增加或删除了元素时;
+- React 可以根据 key 属性高效的对列表组件进行创建和销毁操作：
+
+```javascript
 <script>
     render(){
         const todoList = ["阿辉", "阿辉学习笔记", "阿辉难顶", "阿辉github是chenhui996"];
@@ -465,6 +544,7 @@ React 的核心特点之一就是组件化;
         );
     }
 </script>
+```
 
 - 这里我们使用了列表的 index 作为组件的 key 值;
 - React 社区推荐的最佳实践方式是'使用列表数据元素'的'唯一标识符'作为 key 值;
@@ -481,6 +561,8 @@ React 的核心特点之一就是组件化;
 # 条件渲染
 
 - 在 React 中，我们可以根据不同的情况，渲染不同的内容，这也被成为条件渲染;
+
+```javascript
 <script>
     class Todo extends React.Component{
         render(){
@@ -493,6 +575,7 @@ React 的核心特点之一就是组件化;
         }
     }
 </script>
+```
 
 - 在上面的代码中，我们判断 this.props.content 的内容;
   - 当内容为 "阿辉" 时，我们渲染 "我认识你，阿辉";
@@ -501,6 +584,8 @@ React 的核心特点之一就是组件化;
 # 三元表达式条件渲染
 
 - 我们还可以直接在 JSX 中使用三元表达式进行条件渲染：
+
+```javascript
 <script>
     class Todo extends React.Component{
         render(){
@@ -508,10 +593,12 @@ React 的核心特点之一就是组件化;
         }
     }
 </script>
+```
 
 - 当然'三元表达式'还可以用来'条件渲染不同的' React 元素属性：
   - 下面举一个例子，class 样式名称:
 
+```javascript
 <script>
     class Todo extends React.Component{
         render(){
@@ -521,6 +608,7 @@ React 的核心特点之一就是组件化;
         }
     }
 </script>
+```
 
 # 事件处理
 
@@ -534,10 +622,16 @@ React 的核心特点之一就是组件化;
   - 在 JSX 中，你传递的是一个'事件处理函数'，而'不是一个字符串';
 
 - 在 HTML 中，我们处理事件是这样的：
+
+```javascript
 <script>
-    <button onclick="handleClick()">点我</button>
+  <button onclick="handleClick()">点我</button>
 </script>
+```
+
 - 在 React 中，我们需要写成下面这样：
+
+```javascript
 <script>
     //Button是一个函数式组件
     function Button(){
@@ -548,8 +642,8 @@ React 的核心特点之一就是组件化;
             <button onClick={handlerClick}>点我</button>
         )
     }
-
 </script>
+```
 
 - 注意到我们在上面定义了一个函数式组件:
   - 返回一个按钮;
@@ -561,13 +655,16 @@ React 的核心特点之一就是组件化;
   - 比如一般表单提交时都会刷新浏览器;
   - 但是我们有时候希望提交表单之后不刷新浏览器;
   - 所以我们需要禁用浏览器的默认属性;
-- 在 HTML 中我们禁用事件的默认属性： - 调用定义在事件上的 preventDefault; - 设置事件的 cancelBubble;
+- 在 HTML 中我们禁用事件的默认属性： 
+    - 调用定义在事件上的 preventDefault; 
+    - 设置事件的 cancelBubble;
+```javascript
 <script>
     document.getElementById('myAnchor').addEventListener('click',function(event){
         event.preventDefault();
     });
 </script>
-
+```
 - 在 JSX 中，事件处理和这个类似：
 <script>
     function Link(){
@@ -589,7 +686,7 @@ React 的核心特点之一就是组件化;
     - 获取 nowList，将新的信息覆盖掉获取 nowList;
     - 获取 todoList，将 nowList 用 push 进 todoList 结尾;
     - 最后用 setState 更新 state，然后渲染进页面;
-    - 且别忘了清空nowTodo,毕竟是无意义的内存，若是很大的内容，那就亏了;
+    -  且别忘了清空 nowTodo,毕竟是无意义的内存，若是很大的内容，那就亏了;
   - 基本上就是函数调用;
 
 <script>
@@ -607,7 +704,7 @@ React 的核心特点之一就是组件化;
 - 本教程中间省略了实战的讲解，就最后表单稍微提及;
 - 好奇的小伙伴可以自己看案例，进行分析;
 - 实战的最终效果：
-    - 异步获取将要展示的待办事项：todoList;
-    - 将待办事项展示出来;
-    - 偶数项待办事项将会展示成红色;
-    - 可以添加新的待办事项;
+  - 异步获取将要展示的待办事项：todoList;
+  - 将待办事项展示出来;
+  - 偶数项待办事项将会展示成红色;
+  - 可以添加新的待办事项;
