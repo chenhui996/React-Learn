@@ -33,7 +33,7 @@ cd ..
 此时如果在终端项目目录下运行 npm start 会报错，因为我们的 index.js 还没有内容.
 
 使用编辑器打开项目，在刚刚创建的 index.js 文件中加入如下代码：
-
+```javascript
 <script>
     import React from "react";
     import ReactDOM from "react-dom";
@@ -45,7 +45,7 @@ cd ..
     }
     ReactDOM.render(<App />, document.getElementById("root"));
 </script>
-
+```
 - 我们看到 index.js 里面的代码分为三个部分。
   - 首先是一系列导包，我们导入了 react 包，并命名为 React，导入了 react-dom 包并命名为 ReactDOM;
   - 然后我们定义了一个 React 组件，命名为 App，继承自 React.Component;
