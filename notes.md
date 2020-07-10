@@ -4,7 +4,9 @@
 同时这也是官方推荐初始化 React 项目的最佳方式;
 
 - 在终端中输入如下命令：
-  - npx create-react-app my-todolist
+```
+  $ npx create-react-app my-todolist
+```
 - 等待命令运行完成，接着输入如下命令开启项目：
   - cd my-todolist && npm start
 
