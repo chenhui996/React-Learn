@@ -1,13 +1,13 @@
 import React, { Component } from "react";
-import Todo from "./todo.js";
+import Todo from "./todo";
 
 export default class List extends Component {
   render() {
-    let { data, remove } = this.props;
+    let { data } = this.props;
     return (
       <ul className="messageList">
-        {data.map((item, index) => {
-          return <Todo key={index} data={item} remove={remove} />;
+        {data.map((item) => {
+          return <Todo {...this.props} data={item} key={item.id} />
         })}
       </ul>
     );

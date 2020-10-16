@@ -1,13 +1,14 @@
 import React, { Component } from "react";
 
-export default class addTodo extends Component {
+export default class AddTodo extends Component {
   state = {
     title: "",
     message: "",
+    done: false
   };
   render() {
     let { add } = this.props;
-    let { title, message } = this.state;
+    let { title, message, done } = this.state;
     return (
       <div className="addMessage">
         <input
@@ -29,19 +30,16 @@ export default class addTodo extends Component {
             });
           }}
         ></textarea>
-        <button
-          onClick={() => {
-            if (title !== "") {
-              add(title, message);
+        <button onClick={() => {
+          if(title !== ""){
+            add(title, message, done);
               this.setState({
                 title: "",
                 message: "",
+                done: false
               });
-            }
-          }}
-        >
-          提交留言
-        </button>
+          }
+        }}>提交留言</button>
       </div>
     );
   }

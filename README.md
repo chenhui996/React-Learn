@@ -92,7 +92,7 @@ class App extents Componet{
 class App extents Componet{
   // ...
 
-  // 将 props 中的某些数据，关联到状态中
+  // 将 props 中的某些数据,关联到状态中
   static getDerivedStateFromProps(props){
     // 将对应的数据添加到state中
     // 1, 将Props关联至state
@@ -110,7 +110,7 @@ class App extents Componet{
 
 ```js
 render(){
-  // 2, 调用render根据render的返回值，生成虚拟DOM
+  // 2, 调用render根据render的返回值,生成虚拟DOM
 }
 ```
 
@@ -122,7 +122,7 @@ render(){
 class App extents Componet{
   // ...
 
-  // 组件挂载完成，如果要获取真实DOM，在该方法中获取
+  // 组件挂载完成,如果要获取真实DOM,在该方法中获取
   componentDidMount(){
     // 3, 组件挂载完成
   }
@@ -175,7 +175,7 @@ class App extents Componet{
 
 ```js
 render(){
-  // 2, 调用render根据render的返回值，生成'新的'虚拟DOM
+  // 2, 调用render根据render的返回值,生成'新的'虚拟DOM
 }
 ```
 
@@ -223,4 +223,18 @@ class App extents Componet{
 }
 ```
 
-- 由于组件卸载完成后，就没了，故'卸载组件'无下一步了;
+- 由于组件卸载完成后,就没了,故'卸载组件'无下一步了;
+
+### PrueComponent
+
+- PrueComponent 和 Component:
+  - 功能完全一致;
+  - 只是在组件更新时:
+    - PrueComponent 会对 props/state 做一个'浅对比':
+      - 如果为 true ,则不渲染组件;
+- 使用 PrueComponent 要记住:
+  - 如果修改的数据是'引用类型':
+    - 一定返回一个新的引用;
+- 可以理解成:
+  - PrueComponent 自带了一个:
+    - shouldComponentUpdate();
