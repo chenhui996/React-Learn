@@ -1,3 +1,6 @@
+*{
+  box-sizing: border-box;
+}
 body,
 h2,
 p,
@@ -13,7 +16,8 @@ body {
   background: #f3f3f3;
 }
 .wrap {
-  margin: 30px auto 0;
+  margin: 30px auto;
+  border-radius:4px;
   width: 500px;
   border: 1px solid #ccc;
   background: #fff;
@@ -31,9 +35,9 @@ body {
   margin: 5px auto 0;
   display: block;
   box-sizing: border-box;
-  width: 300px;
+  width: 400px;
   height: 40px;
-  border-radius: 10px 10px 0 0;
+  border-radius: 4px 4px 0 0;
   border: none;
   background: #f3f3f3;
   outline: none;
@@ -46,9 +50,9 @@ body {
   overflow: hidden;
   box-sizing: border-box;
   resize: none;
-  width: 300px;
+  width: 400px;
   height: 100px;
-  border-radius: 0 0 10px 10px;
+  border-radius: 0 0 4px 4px;
   border: none;
   border-top: 1px solid #999;
   background: #f3f3f3;
@@ -59,16 +63,17 @@ body {
 .addMessage button {
   display: block;
   margin: 10px auto;
-  width: 300px;
+  width: 400px;
   height: 40px;
-  border-radius: 10px;
+  border-radius: 4px;
   border: none;
-  background: #f3f3f3;
+  color:#fff;
+  background: green;
 }
 .messageList {
   border-top: 1px solid #ccc;
 }
-.messageList li {
+.messageList li, .drag {
   position: relative;
   margin: 10px auto 0;
   width: 400px;
@@ -76,31 +81,32 @@ body {
   padding-bottom: 5px;
   overflow: hidden;
 }
-.messageList h3 {
+.messageList h3, .drag h3 {
   font: 14px/30px "宋体";
   padding-left: 10px;
   border-bottom: 1px solid #ccc;
+  background-color: #ccc;
 }
-.messageList p {
+.messageList p,.drag p {
   font: 12px/24px "宋体";
   padding: 5px 15px;
   height: 72px;
   overflow: hidden;
   text-indent: 2em;
 }
-.messageList a {
+.messageList a,.drag a {
   margin-right: 15px;
   float: right;
   font: 12px/24px "宋体";
   color: #0066bf;
   cursor: pointer;
 }
-.messageList input {
+.messageList input,.drag input {
   position: absolute;
   right: 10px;
   top: 10px;
 }
-.messageList textarea {
+.messageList textarea,.drag textarea {
   display: none;
   box-sizing: content-box;
   width: 370px;
@@ -114,10 +120,10 @@ body {
   margin: 2px auto;
   text-indent: 2em;
 }
-.messageList .editing p {
+.messageList .editing p, .drag .editing p {
   display: none;
 }
-.messageList .editing textarea {
+.messageList .editing textarea, .drag .editing textarea  {
   display: block;
 }
 .sum {
@@ -146,4 +152,12 @@ body {
 .done p {
   text-decoration: line-through;
   color: #999;
+}
+
+.drag{
+  position: fixed;
+  opacity: 1;
+  background-color: #f8f8f8;
+  list-style: none;
+  margin: 0 0 0 10px;
 }

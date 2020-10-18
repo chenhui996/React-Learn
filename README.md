@@ -238,3 +238,34 @@ class App extents Componet{
 - 可以理解成:
   - PrueComponent 自带了一个:
     - shouldComponentUpdate();
+
+### ref
+
+- 用于获取:
+  - '组件实例'或'真实节点';
+- 用法:
+
+```js
+// 类似于vue的: '响应式丢失'相关知识;
+import React { Component, createRef } from 'react';
+
+someHtml = createRef();
+// 场景
+componentDidUpdate(prevProps, prevState) {
+    // 进行前后差异对比，然后根据结果，设置相应的脚本操作
+    if (!prevState.edit && this.state.edit) {
+      // 这里就是将前后的属性edit进行对比，若edit为true，则直接focus();
+      this.someHtml.current.focus();
+    }
+  }
+
+export default class App extends PureComponent {
+  someHtml = createRef();
+  render(){
+    return (
+      <textarea type="text" ref={this.someHtml}></textarea>
+    );
+  }
+}
+
+```
