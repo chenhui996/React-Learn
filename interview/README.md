@@ -95,21 +95,35 @@ shouldComponentUpdate(nextProps, nextState){
   - PureComponent 自带了一个 shouldComponentUpdate();
     - 并且进行了浅比较;
 
-#### memo用法
+#### memo 用法
 
 ```js
 // memo用法
-function MyComponent (props) {
-    /* 使用 props 渲染 */
+function MyComponent(props) {
+  /* 使用 props 渲染 */
 }
 
 // areEqual 也可不传
 function areEqual(prevProps, nextProps) {
-    if (prevProps.seconds===nextProps.seconds) {
-        return true
-    } else {
-        return false
-    }
+  if (prevProps.seconds === nextProps.seconds) {
+    return true;
+  } else {
+    return false;
+  }
 }
-export default React.memo(MyComponent, areEqual)
+export default React.memo(MyComponent, areEqual);
 ```
+
+### immutable.js
+
+- 彻底拥抱“不可变值”;
+- 基础共享数据（不是深拷贝），速度快;
+- 有一定学习和迁移成本;
+
+## 常见基础面试考题
+
+### React 组件如何通讯
+
+- 父子组件通过 属性 和 props 通讯;
+- 通过 context 通讯;
+- 通过 Redux 通讯;
