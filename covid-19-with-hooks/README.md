@@ -9,5 +9,4 @@
 - 因此理解:
   - 函数式组件的'运行过程'对掌握:
     - Hooks 中许多'重要的特性'很关键;
-- 请看下图:
-![运行过程](./src/static/img/render.gif "Magic Gardens")
+      - 请看下图:![运行过程](./src/static/img/render.gif "Magic Gardens")
