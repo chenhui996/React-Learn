@@ -263,4 +263,113 @@ useMemo(() => fn, deps);
 - 而且浏览器引擎的性能也足够优秀;
   - 因此这一系列文章不会深入去讲解 useMemo 的使用;
 - 更何况，已经掌握 useCallback 的你;
-  - 应该也已经知道怎么去使用 useMemo 了吧
+  - 应该也已经知道怎么去使用 useMemo 了吧;
+
+---
+
+---
+
+### 一个未解决的问题
+
+- 你很有可能在使用 useState 的时候遇到过一个问题:
+  - 通过 Setter 修改状态的时候，怎么读取上一个状态值，并在此基础上修改呢？
+  - 如果你看文档足够细致，应该会注意到 useState 有一个函数式更新（Functional Update）的用法;
+    - 以下面这段计数器（代码来自 React 官网）为例:
+
+```js
+function Counter({ initialCount }) {
+  const [count, setCount] = useState(initialCount);
+  return (
+    <>
+      Count: {count}
+      <button onClick={() => setCount(initialCount)}>Reset</button>
+      <button onClick={() => setCount((prevCount) => prevCount - 1)}>-</button>
+      <button onClick={() => setCount((prevCount) => prevCount + 1)}>+</button>
+    </>
+  );
+}
+```
+
+- 可以看到，我们传入 setCount 的是一个函数:
+  - 它的参数是之前的状态，返回的是新的状态;
+
+---
+
+- 熟悉 Redux 的朋友马上就指出来了:
+  - 这其实就是一个 Reducer 函数;
+
+## Reducer 函数的前生今世
+
+- Redux 文档里面已经详细地阐述了 Reducer 函数;
+- 但是我们这里将先回归最基础的概念:
+  - 暂时忘掉框架相关的知识;
+- 在学习 JavaScript 基础时，你应该接触过数组的 reduce 方法:
+  - 它可以用一种相当炫酷的方式实现'数组求和'：
+
+```js
+const nums = [1, 2, 3];
+const value = nums.reduce((acc, next) => acc + next, 0);
+```
+
+- 其中 reduce 的第一个参数:
+  - (acc, next) => acc + next 就是一个 Reducer 函数;
+    - 从表面上来看，这个函数接受一个状态的累积值 acc 和新的值 next;
+      - 然后返回更新过后的累积值 acc + next;
+    - 从更深层次来说，Reducer 函数有两个必要规则:
+      - 只返回一个值;
+      - 不修改输入值，而是返回新的值;
+
+---
+
+- 第一点很好判断，其中第二点则是很多新手踩过的坑，对比以下两个函数:
+
+```js
+// 不是 Reducer 函数！
+function buy(cart, thing) {
+  cart.push(thing);
+  return cart;
+}
+
+// 正宗的 Reducer 函数
+function buy(cart, thing) {
+  return cart.concat(thing);
+}
+```
+
+- 上面的函数调用了数组的 push 方法:
+  - 会'就地修改'输入的 cart 参数;
+    - 违反了 Reducer 第二条规则;
+- 下面的函数通过数组的 concat 方法返回了一个全新的数组;
+  - 避免了直接修改 cart;
+
+---
+
+- 我们回过头来看之前 useState 的函数式更新写法:
+
+```js
+setCount((prevCount) => prevCount + 1);
+```
+
+- 是一个很标准的 Reducer;
+
+### basicStateReducer
+
+- 在 React 源码中有这么一个关键的函数 basicStateReducer（去掉了源码中的 Flow 类型定义）：
+
+```js
+function basicStateReducer(state, action) {
+  return typeof action === "function" ? action(state) : action;
+}
+```
+
+- 于是，当我们通过 setCount(prevCount => prevCount + 1) 改变状态时:
+  - 传入的 action 就是一个 Reducer 函数:
+    - 然后调用该函数并传入当前的 state;
+      - 得到更新后的状态;
+  - 传入具体的值修改状态时（例如 setCount(5)）:
+    - 由于不是函数，所以直接取传入的值作为更新后的状态;
+
+---
+
+- 是不是一下子就豁然开朗了？
+  - 反正我是;

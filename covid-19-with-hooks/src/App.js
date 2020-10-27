@@ -5,6 +5,8 @@ import CountriesChart from "./components/CountriesChart";
 import SelectDataKey from "./components/SelectDataKey";
 import { useCoronaAPI } from "./hooks/useCoronaAPI";
 
+import HistoryChartGroup from "./components/HistoryChartGroup";
+
 function App() {
   const globalStats = useCoronaAPI("/all", {
     initialData: {},
@@ -17,6 +19,15 @@ function App() {
     converter: (data) => data.slice(0, 10),
   });
 
+  const [country, setCountry] = useState(null);
+  const history = useCoronaAPI(`/historical/${country}`, {
+    initialData: {},
+    converter: (data) => {
+      // 获取history data: 日期 和 数量
+      return data.timeline;
+    },
+  });
+
   return (
     <div className="App">
       <h1>COVID-19</h1>
@@ -26,7 +37,20 @@ function App() {
           setKey(e.target.value);
         }}
       />
-      <CountriesChart data={countries} dataKey={key} />
+      <CountriesChart
+        data={countries}
+        dataKey={key}
+        onclick={(payload) => setCountry(payload.activeLabel)}
+      />
+
+      {country ? (
+        <>
+          <h2>History for {country}</h2>
+          <HistoryChartGroup history={history} />
+        </>
+      ) : (
+        <h2>Click on a country to show its history.</h2>
+      )}
     </div>
   );
 }

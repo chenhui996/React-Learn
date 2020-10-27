@@ -10,7 +10,7 @@ import {
   Bar,
 } from "recharts";
 
-function CounteriesChart({ data, dataKey }) {
+function CounteriesChart({ data, dataKey, onclick }) {
   return (
     <BarChart
       width={1200}
@@ -18,6 +18,7 @@ function CounteriesChart({ data, dataKey }) {
       style={{ margin: "auto" }}
       margin={{ top: 30, left: 20, right: 30 }}
       data={data}
+      onClick={onclick}
     >
       <CartesianGrid strokeDasharray="4,1,2" />
       <XAxis dataKey="country" />
