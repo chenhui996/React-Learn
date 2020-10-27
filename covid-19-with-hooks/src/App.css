@@ -1,4 +1,6 @@
 .App {
+  width: 1200px;
+  margin: auto;
   text-align: center;
 }
 
@@ -16,23 +18,43 @@
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
+}
+.history-group {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  width: 1200px;
+  margin: auto;
+}
+
+table,
+th,
+td {
+  border: 1px solid #ccc;
+  border-collapse: collapse;
 }
 
 .App-link {
   color: #61dafb;
 }
+td {
+    padding: 5px;
+    text-align: left;
+  }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+  @keyframes App-logo-spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
 }
+.global-stats > table {
+    margin: auto;
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+  }
