@@ -54,13 +54,11 @@ function App() {
     refetchInterval: 5000,
   });
 
-  // const [key, setKey] = useState("cases");
   const countries = useCoronaAPI(`/countries?sort=${key}`, {
     initialData: [],
     converter: (data) => data.slice(0, 10),
   });
 
-  // const [country, setCountry] = useState(null);
   const history = useCoronaAPI(`/historical/${country}`, {
     initialData: {},
     converter: (data) => {
