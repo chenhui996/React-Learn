@@ -6,9 +6,7 @@ export function useCoronaAPI(
   path,
   {
     initialData = null,
-    converter = (data) => {
-      return data;
-    },
+    converter = (data) => data,
     refetchInterval = null,
   }
 ) {

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import {
   BarChart,
@@ -10,7 +10,20 @@ import {
   Bar,
 } from "recharts";
 
-function CounteriesChart({ data, dataKey, onclick }) {
+import { AppDispatch } from "../App";
+
+function CountriesChart({ data, dataKey }) {
+  const dispatch = useContext(AppDispatch);
+
+  function onClick(payload = {}) {
+    if (payload.activeLabel) {
+      dispatch({
+        type: "SET_COUNTRY",
+        country: payload.activeLabel,
+      });
+    }
+  }
+
   return (
     <BarChart
       width={1200}
@@ -18,7 +31,7 @@ function CounteriesChart({ data, dataKey, onclick }) {
       style={{ margin: "auto" }}
       margin={{ top: 30, left: 20, right: 30 }}
       data={data}
-      onClick={onclick}
+      onClick={onClick}
     >
       <CartesianGrid strokeDasharray="4,1,2" />
       <XAxis dataKey="country" />
@@ -30,4 +43,4 @@ function CounteriesChart({ data, dataKey, onclick }) {
   );
 }
 
-export default CounteriesChart;
+export default CountriesChart;

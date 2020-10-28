@@ -373,3 +373,38 @@ function basicStateReducer(state, action) {
 
 - 是不是一下子就豁然开朗了？
   - 反正我是;
+
+---
+
+## Redux 还有用吗：Control 与 Context 之争
+
+- 听到有些声音说有了 React Hooks，都不需要 Redux 了。
+  - 那 Redux 到底还有用吗？
+
+---
+
+- 在回答这个问题之前，请允许我先胡思乱想一波;
+  - React Hooks 确实强大得可怕:
+    - 特别是通过优秀的第三方自定义 Hooks 库:
+      - 几乎能让每个组件都能游刃有余地处理复杂的业务逻辑;
+  - 反观 Redux:
+    - 它的核心思想就是将状态和修改状态的操作全部集中起来进行;
+
+---
+
+- 有没有发现，这其实刚好对应了两种管理学思想 Context 和 Control？
+
+```
+管理者需要 Context，not Control。—— 字节跳动创始人和 CEO 张一鸣
+```
+
+- Control 就是将权力集中起来:
+  - 员工们只需有条不紊地按照 CEO 的决策执行相应的任务;
+- 就像 Redux 中的全局 Store 是” 唯一的真相来源 “（Single Source of Truth）:
+  - 所有状态和数据流的更新必须经过 Store;
+- 而 Context 就是给予各部门、各层级足够的决策权:
+  - 因为他们:
+    - 所拥有的上下文更充足;
+    - 专业度也更好;
+  - 就像 React 中响应特定逻辑的组件具有更充足的上下文;
+    - 并且可以借助 Hooks ” 自给自足 “地执行任务，而无需依赖全局的 Store;

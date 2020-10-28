@@ -2,6 +2,7 @@ import React from "react";
 import IndexPage from "../view/index";
 import UndefindPage from "../view/404";
 
+
 const routes = [
   {
     path: "/",

@@ -21,6 +21,7 @@ function topics(
     default:
       break;
   }
+  // console.log(topics);
   return topics;
 }
 
