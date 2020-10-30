@@ -14,7 +14,7 @@
 - 剖析整个 React Refs;
 - 关于 React.forwardRef 会在 '另' 一篇文章深入探讨;
 
-### 一、Refs
+## 一、Refs
 
 - React 的 '核心思想' 是:
   - 每次对于界面 state 的改动:
@@ -41,7 +41,7 @@
   - 方法来更新组件;
     - 最好不要使用 refs;
 
-#### 使用场景
+### 使用场景
 
 ##### 管理焦点（如文本选择）或处理表单数据:
 
@@ -62,3 +62,62 @@
   - 要编写一个非受控组件:
     - 就需要使用 Refs :
       - 来从 DOM 节点中 '获取' 表单数据;
+
+```js
+import React from "react";
+
+class NameForm extends React.Component {
+  constructor(props) {
+    super(props); // super()是必须，虽然用不到props，但是，还是放一下，完美一点;
+    this.input = React.createRef();
+  }
+
+  handleSubmit = (e) => {
+    console.log("A name was submitted:" + this.input.current.value);
+    e.preventDefault();
+  };
+
+  render() {
+    return (
+      <form onSubmit={this.handleSubmit}>
+        <label>
+          Name:
+          <input type="text" ref={this.input} />
+        </label>
+        <input type="submit" value="Submit" />
+      </form>
+    );
+  }
+}
+
+export default NameForm;
+```
+
+- 因为 '非受控组件' 将 '真实数据' 储存在 'DOM 节点中';
+  - 所以再使用 '非受控组件' 时:
+    - 有时候反而更容易 '同时集成' React 和非 React 代码;
+- 如果你不介意代码美观性;
+- 并且希望快速编写代码;
+- 使用 '非受控组件' 往往可以减少你的代码量;
+  - 否则，你应该使用受控组件;
+
+##### 媒体播放：
+
+- 基于 React 的:
+  - 音乐或视频播放器;
+    - 可以利用 Refs 来管理:
+      - 当前状态（播放/暂停），或管理播放进度等;
+        - 这些更新不需要进行状态管理;
+
+##### 触发强制动画：
+
+- 如果要在元素上触发强制动画时:
+  - 可以使用 Refs 来执行此操作;
+
+##### 集成第三方 DOM 库
+
+### 使用方式
+
+- Refs 有 三种实现：
+
+#### 1、方法一：通过 createRef 实现

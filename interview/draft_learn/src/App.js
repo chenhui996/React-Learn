@@ -1,4 +1,5 @@
 import Child from "./Child";
+import Ref from "./Ref";
 import { useState } from "react";
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
     <div>
       <Child AchieveChildTitle={AchieveChildTitle} />
       <h2>{title}</h2>
+      <Ref />
     </div>
   );
 }
