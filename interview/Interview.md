@@ -171,15 +171,62 @@ this.setState((prevState, prePprops) => ({}));
 ```js
 class CustomForm extends Component {
   handleSubmit = () => {
-    console.log("Input Value: ", this.input.value);
+    console.log("输入的值是:", this.input.value);
   };
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form>
         <input type="text" ref={(input) => (this.input = input)} />
-        <button type="submit">Submit</button>
+        <buttom type="submit">Submit</buttom>
       </form>
     );
   }
 }
 ```
+
+- 上述代码中的 input 域包含了一个 ref 属性:
+  - 该属性声明的:
+    - 回调函数;
+      - 会接收 input 对应的 'DOM 元素';(也就是 input 这个节点本身)
+  - 我们将其绑定到 this 指针:
+    - 以便在其他的 '类函数' 中使用;
+- 另外值得一提的是:
+  - refs 并不是类组件的专属;
+  - 函数式组件:
+    - 同样能够利用 '闭包' 暂存其值;
+
+```js
+function CustomForm({ handleSubmit }) {
+  let inputElement;
+  return (
+    <form>
+      <input type="text" ref={(input) => (inputElement = input)} />
+      <buttom type="submit">Submit</buttom>
+    </form>
+  );
+}
+```
+
+### [详细易懂版本(推荐)]
+
+#### 1. ref 设置为普通字符串
+
+```js
+<button ref="myBtn"></button>
+```
+
+- 给 '元素' 定义 ref 属性:
+  - 后续可以通过 this.refs.myBtn 来获取这个真实 DOM 对象;
+- 给 '组件' 定义 ref 属性:
+  - 后续可以通过 this.refs.myBtn 来获取这个组件的实例对象;
+
+#### 2. ref 设置为箭头函数
+
+```js
+<button ref="{ (sl) => { this.myBtn = sl } }"></button>
+```
+
+- 给 '元素' 定义 ref 属性:
+  - 后续可以通过 this.myBtn 来获取这个真实 DOM 对象;
+- 给 '组件' 定义 ref 属性:
+  - 后续可以通过 this.myBtn 来获取这个组件的实例对象;
