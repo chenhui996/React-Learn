@@ -1,5 +1,6 @@
 import Child from "./Child";
 import Ref from "./Ref";
+import CustomUseRef from "./useRef";
 import { useState } from "react";
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
       <Child AchieveChildTitle={AchieveChildTitle} />
       <h2>{title}</h2>
       <Ref />
+      <CustomUseRef />
     </div>
   );
 }
