@@ -121,3 +121,134 @@ export default NameForm;
 - Refs 有 三种实现：
 
 #### 1、方法一：通过 createRef 实现
+
+- createRef 是 **React v16.3 ** 新增的 API:
+  - 允许我们访问 DOM 节点;
+  - 或在 render 方法中创建的 React 元素;
+
+---
+
+- Refs 是使用 React.createRef() 创建的;
+  - 并通过 ref 属性附加到 React 元素;
+
+---
+
+- Refs 通常在 React 组件的:
+  - 构造函数中定义;
+- 或者作为 '函数组件' 顶层的变量定义;
+  - 然后附加到 render() 函数中的元素;
+
+```js
+export default class Hello extends React.Component {
+  constructor(props) {
+    super(props);
+    // 创建 ref 存储 customRef DOM 元素
+    this.customRef = React.createRef();
+  }
+  componentDidMount() {
+    // 注意：通过 "current" 取得DOM节点
+    // 直接使用原生 API 使 custom 输入框获得焦点
+    this.customRef.current.focus();
+  }
+  render() {
+    return <input ref={this.customRef} />;
+  }
+}
+```
+
+- 使用 React.createRef() 给组件创建了 Refs 对象;
+- 在上面的示例中，ref 被命名 customRef;
+  - 然后将其附加到 <input> DOM 元素;
+
+---
+
+- 其中， customRef 的属性 current 指的是:
+  - 当前附加到 ref 的元素;
+  - 并广泛用于:
+    - 访问和修改
+  - 我们的附加元素;
+- 事实上，如果我们通过:
+  - 登录 myRef 控制台:
+    - 进一步扩展我们的示例;
+      - 我们将看到该 current 属性:
+        - 确实是唯一可用的属性:
+
+```js
+componentDidMount = () => {
+  // myRef 仅仅有一个 current 属性
+  console.log(this.textRef);
+  // myRef.current
+  console.log(this.textRef.current);
+  // component 渲染完成后，使 text 输入框获得焦点
+  this.textRef.current.focus();
+};
+```
+
+- 在 componentDidMount 生命周期阶段:
+  - myRef.current 将按预期:
+    - 分配给我们的 <input> 元素;
+- componentDidMount 通常是:
+  - 使用 refs 处理一些:
+    - '初始设置' 的 '安全位置';
+
+---
+
+- 我们不能在 componentWillMount 中更新 Refs:
+  - 因为此时，组件还没渲染完成;
+    - Refs 还为 null;(它要从组件中拿东西)
+
+#### 2、方法二：回调 Refs
+
+- 不同于传递 createRef() 创建的 ref 属性;
+  - 你会传递一个函数;
+- 这个函数中:
+  - 接受 React 组件实例;
+  - 或 HTML DOM 元素作为参数;
+- 以使它们能:
+  - 在 '其他地方' 被 '存储' 和 '访问';
+
+```js
+import React from "react";
+export default class Hello extends React.Component {
+  constructor(props) {
+    super(props);
+    this.customRef = null; // 创建ref为null
+  }
+  componentDidMount() {
+    // 注意：这里没有使用 "current"
+    // 直接使用原生 API 使 text 输入框获得焦点
+    this.customRef.focus();
+  }
+  render() {
+    // 把 <input> ref 关联到构造器里创建的 customRef 上
+    return <input ref={(node) => (this.customRef = node)} />;
+  }
+}
+```
+
+- React 将在组件挂载时:
+  - 将 DOM 元素传入 ref 回调函数并调用;
+    - 当卸载时传入 null 并调用它;
+- 在 componentDidMount 或 componentDidUpdate 触发前:
+  - React 会保证 refs 一定是最新的;
+
+---
+
+- 像上例:
+  - ref 回调函数：
+    - 是以 '内联函数' 的方式定义的;
+    - 在 '更新过程' 中它会被 '执行两次';
+      - 第一次传入参数 null;
+      - 然后第二次会传入参数 DOM 元素;
+
+---
+
+- 这是因为:
+  - 在每次渲染时:
+    - 会 '创建一个新的' 函数实例;
+      - 所以 React 清空旧的 ref 并且设置新的;
+- 我们可以通过:
+  - 将 ref 的回调函数定义成:
+    - class 的绑定函数的方式;
+      - 可以避免上述问题;
+- 但是大多数情况下它是无关紧要的;
