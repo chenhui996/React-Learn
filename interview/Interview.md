@@ -230,3 +230,99 @@ function CustomForm({ handleSubmit }) {
   - 后续可以通过 this.myBtn 来获取这个真实 DOM 对象;
 - 给 '组件' 定义 ref 属性:
   - 后续可以通过 this.myBtn 来获取这个组件的实例对象;
+
+### React 中有哪些构建组件的方式？
+
+#### 函数
+
+- 组件名:
+  - 函数名
+  - 首字母需要大写
+- 需要 return 出:
+  - react 元素(JSX)
+
+```js
+function Hello(props) {
+  return <h1>hello word</h1>;
+}
+```
+
+#### class 类
+
+- 组件名:
+  - 类的名称
+  - 首字母需要大写
+- 需要 return 出:
+  - react 元素(JSX)
+
+```js
+class Hello extends React.Component/React.PureComponent{
+  render(){
+    return <h1>hello word</h1>;
+  }
+}
+```
+
+#### 有什么区别？
+
+- 函数组件:
+  - 看似只是一个:
+    - 返回值是 'DOM 结构' 的 '函数';
+  - 其实它的背后是:
+    - 无状态组件的思想;
+- 函数组件中:
+  - 你无法使用 State;
+  - 无法使用组件的生命周期方法;
+  - 这就决定了函数组件都是:
+    - 展示性组件:
+      - 接收 Props，渲染 DOM，而不关注其他逻辑;
+- 函数组件中没有 this;
+- 函数组件更容易理解;
+  - 当你看到一个函数组件时:
+    - 你就知道它的功能只是:
+      - 接收属性
+      - 渲染页面
+    - 它不执行:
+      - 与 UI 无关的逻辑处理;
+      - 它只是一个纯函数;
+    - 不用在意它返回的:
+      - DOM 结构有多复杂;
+
+---
+
+- 但是用上 hooks 就领导别论了(本人是几乎全部 hooks 了, 类组件写的有点反胃);
+
+### 事件处理函数的 this 指向问题
+
+#### bind
+
+```js
+<buttom onClick={this.handleClick.bind(this)}>hello</buttom>
+```
+
+#### 在构造函数中默认绑定 this (推荐)
+
+```js
+this.handleClick = this.handleClick.bind(this);
+```
+
+#### 使用箭头函数来处理
+
+```js
+<buttom onClick={(e) => this.handleClick(e)}>Click me</buttom>
+```
+
+### [补充] 事件处理函数如何传递参数？
+
+- 可以使用 bind 传递参数;
+- 将 '事件处理函数' 交给 '箭头函数':
+  - 然后在 '箭头函数' 里面:
+    - 调用我自己:
+      - 开始想要调用的那个方法;
+    - 这时我已经是个普通函数了;
+
+### [注意！！！]
+
+- 如果一个 '事件处理函数' 传递了 '额外的参数':
+  - 那么 '事件对象' 会:
+    - 默默的 '放置在最后一个里面';
