@@ -379,6 +379,16 @@ this.handleClick = this.handleClick.bind(this);
 
 ### 什么是高阶组件？
 
+- HoC:
+  - High order Component
+- HoC 不属于 React 的 API:
+  - 它是一种实现模式;
+    - 本质上是一个 '函数':
+      - 接受 '一个' 或 '多个' React 组件作为 '参数';
+        - 返回一个全新的 React 组件;
+          - 而不是改造现有的组件;
+            - 这样的组件被称为 '高阶组件';
+
 ### 什么是受控组件和非受控组件？
 
 ### 什么是纯函数？
