@@ -224,6 +224,46 @@ window.addEventListener("devicemotion", function (e) {
 })();
 
 // 第二步:
-// 向 用户 申请授权
-
+// 向 用户 申请授权:
+function setMotion(cb) {
+  let fn = (e) => {
+    const { x, y, z } = e.acceleration;
+    const { x: x2, y: y2, z: z2 } = e.accelerationIncludingGravity;
+    if (getAdr()) {
+      // 取反逻辑
+      e.acceleration.x = -x;
+      e.acceleration.y = -y;
+      e.acceleration.z = -z;
+      e.accelerationIncludingGravity.x = -x2;
+      e.accelerationIncludingGravity.y = -y2;
+      e.accelerationIncludingGravity.z = -z2;
+    }
+    cb(e);
+  };
+  if (DeviceMotionEvent.requestPermission) {
+    // IOS 13 及 之后
+    DeviceMotionEvent.requestPermission().then(
+      (permissionState) => {
+        if (permissionState === "granted") {
+          // alert("success");
+          widnow.addEventListener("devicemotion", fn);
+        } else {
+          alert("failed");
+        }
+      },
+      () => {
+        alert("failed");
+      }
+    );
+  } else {
+    // IOS 13 之前
+    widnow.addEventListener("devicemotion", fn);
+  }
+}
 ```
+
+### IOS 13.3 中:
+
+- IOS 13.3 中:
+  - 要求获取 '动作与方向' 的 '授权' 时:
+    - 必须用户 '手动触发';
